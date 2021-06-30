@@ -1,0 +1,1 @@
+In this project, I have created a Login/Signup endpoint by using Mongoose and used JWT for authentication. Also passed different endpoint by using JWT token for authorization.

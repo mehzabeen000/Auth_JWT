@@ -5,8 +5,10 @@ const bcrypt = require('bcrypt');
 var users = require('../models/reg');
 
 
+
 var routes = express.Router();
 routes.use(express.json());
+
 
 routes.post('/signup', (req, res, next) => {
     var email = req.body.email;
@@ -62,10 +64,10 @@ routes.post('/login', (req, res, next) => {
                         return next(err);
                     }
                     else if (result) {
-                        var token = jwt.sign({ email: user.email, userid: user._id }, 'secret')
-                        // { expiresIn: "1h" }
+                        var token = jwt.sign({ email: user.email, userid: user._id }, 'secret',{ expiresIn: "1h" })
                         res.setHeader('Content-Type', 'text/plain');
                         res.status(200)
+                        res.cookie(token);
                         res.json({ message: 'You are authenticated!', token: token })
                     }
                 })
@@ -74,5 +76,6 @@ routes.post('/login', (req, res, next) => {
         .catch((err) => next(err));
 }
 )
+
 
 module.exports = routes;
